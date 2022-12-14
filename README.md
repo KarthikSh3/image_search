@@ -1,4 +1,4 @@
-A simple image search app developed using Kotlin and paging 3 library
+A simple image search app developed using Kotlin and paging 3 library.
 
 **Screen**
 
@@ -8,7 +8,7 @@ A simple image search app developed using Kotlin and paging 3 library
 
 **Setup**
 
-Clone the project using below command
+Clone the project using below command.
 
 [https://github.com/KarthikSh3/image_search]
 
