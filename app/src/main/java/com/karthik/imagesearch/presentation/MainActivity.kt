@@ -8,7 +8,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
-import com.karthik.imagesearch.data.ImagePagingAdapter
 import com.karthik.imagesearch.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -18,8 +17,9 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
     private val adapter = ImagePagingAdapter()
+    private val spanCount: Int = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,9 +27,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.progressBar.isVisible = false
-        binding.txtPlaceholder.isVisible = true
-        binding.rvImage.layoutManager = GridLayoutManager(this, 3)
+        binding.rvImage.layoutManager = GridLayoutManager(this, spanCount)
         binding.rvImage.adapter = adapter
 
         binding.btnSearch.setOnClickListener {
@@ -58,7 +56,6 @@ class MainActivity : AppCompatActivity() {
                     binding.progressBar.isVisible = false
                     binding.txtPlaceholder.isVisible = true
                 }
-                /// show empty view
                 else {
                     binding.txtPlaceholder.isVisible = false
                 }
@@ -83,6 +80,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Showing text when there is no data
         lifecycleScope.launch {
             adapter.loadStateFlow
                 .collectLatest {

@@ -1,4 +1,4 @@
-package com.karthik.imagesearch.data
+package com.karthik.imagesearch.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,9 +12,9 @@ import com.karthik.imagesearch.databinding.ItemBinding
 
 
 class ImagePagingAdapter :
-    PagingDataAdapter<Photo, ImagePagingAdapter.CatViewHolder>(ImageComparator) {
+    PagingDataAdapter<Photo, ImagePagingAdapter.ImageViewHolder>(ImageComparator) {
 
-    override fun onBindViewHolder(holder: CatViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
 
         val photo = getItem(position)
         photo?.let {
@@ -26,15 +26,15 @@ class ImagePagingAdapter :
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
 
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemBinding.inflate(inflater, parent, false)
 
-        return CatViewHolder(binding)
+        return ImageViewHolder(binding)
     }
 
-    class CatViewHolder(val view: ItemBinding) : RecyclerView.ViewHolder(view.root)
+    class ImageViewHolder(val view: ItemBinding) : RecyclerView.ViewHolder(view.root)
 
     object ImageComparator : DiffUtil.ItemCallback<Photo>() {
         override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {

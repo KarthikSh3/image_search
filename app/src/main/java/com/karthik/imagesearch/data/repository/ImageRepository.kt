@@ -11,15 +11,18 @@ import com.karthik.imagesearch.data.model.Photo
 import javax.inject.Inject
 
 class ImageRepository @Inject constructor(private val imageSearchService: ImageSearchService) {
+    private val initialLoadSize: Int = 2
+    private val initialKey: Int = 1
+
     fun getAllImages(keyWord: String): LiveData<PagingData<Photo>> {
         return Pager(
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 enablePlaceholders = false,
-                initialLoadSize = 2
+                initialLoadSize = initialLoadSize
             ), pagingSourceFactory = {
                 ImagePagingSource(imageSearchService, keyWord)
-            }, initialKey = 1
+            }, initialKey = initialKey
         ).liveData
     }
 }
